@@ -1,3 +1,5 @@
+using StudentsApp.Core;
+
 namespace StudentsApp
 {
     public class Program
@@ -8,6 +10,7 @@ namespace StudentsApp
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddSingleton<DBHelper>();
 
             var app = builder.Build();
 
