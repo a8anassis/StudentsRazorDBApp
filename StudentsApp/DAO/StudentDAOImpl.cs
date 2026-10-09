@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using StudentsApp.Core;
 using StudentsApp.Models;
 
@@ -16,17 +15,63 @@ public class StudentDAOImpl : IStudentDAO
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        string sql = "DELETE FROM Students WHERE Id = @id";
+
+        using SqlConnection connection = _db.GetConnection();
+        connection.Open();
+
+        using SqlCommand command = new(sql, connection);
+        command.Parameters.AddWithValue("@id", id);
+        command.ExecuteNonQuery();
     }
 
     public List<Student> GetAll()
     {
-        throw new NotImplementedException();
+        string sql = "SELECT * FROM Students";
+        List<Student> students = [];
+
+        using SqlConnection connection = _db.GetConnection();
+        connection.Open();
+
+        using SqlCommand command = new(sql, connection);
+        using SqlDataReader reader = command.ExecuteReader();
+
+        while (reader.Read())
+        {
+            Student student = new()
+            {
+                Id = (int)reader["Id"],
+                Firstname = reader["Firstname"] as string ?? "",
+                Lastname = reader["Lastname"] as string ?? ""
+            };
+            students.Add(student);
+        }
+        return students;
     }
 
     public Student? GetById(int id)
     {
-        throw new NotImplementedException();
+        Student? studentToReturn = null;
+        string sql = "SELECT * FROM Students WHERE Id = @id";
+
+        using SqlConnection connection = _db.GetConnection();
+        connection.Open();
+
+        using SqlCommand command = new(sql, connection);
+        command.Parameters.AddWithValue("@id", id);
+
+        using SqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read())
+        {
+            studentToReturn = new Student()
+            {
+                Id = (int)reader["Id"],
+                Firstname = reader["Firstname"] as string ?? "",
+                Lastname = reader["Lastname"] as string ?? ""
+            };
+        }
+        return studentToReturn;
     }
 
     public Student? Insert(Student student)
@@ -74,6 +119,16 @@ public class StudentDAOImpl : IStudentDAO
 
     public void Update(Student student)
     {
-        throw new NotImplementedException();
+        string sql = "UPDATE Students SET Firstname = @firstname, Lastname = @lastname WHERE Id = @id";
+
+        using SqlConnection connection = _db.GetConnection();
+        connection.Open();
+
+        using SqlCommand command = new(sql, connection);
+        command.Parameters.AddWithValue("@firstname", student.Firstname);
+        command.Parameters.AddWithValue("@lastname", student.Lastname);
+        command.Parameters.AddWithValue("@id", student.Id);
+
+        command.ExecuteNonQuery();
     }
 }
