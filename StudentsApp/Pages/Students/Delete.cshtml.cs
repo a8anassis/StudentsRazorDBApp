@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudentsAppSQL9Dev.Models;
-using StudentsAppSQL9Dev.Services;
+using StudentsApp.Models;
+using StudentsApp.Services;
 
-namespace StudentsAppSQL9Dev.Pages.Students
+namespace StudentsApp.Pages.Students
 {
     public class DeleteModel : PageModel
     {

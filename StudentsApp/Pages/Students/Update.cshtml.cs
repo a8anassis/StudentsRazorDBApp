@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StudentsAppSQL9Dev.DTO;
-using StudentsAppSQL9Dev.Models;
-using StudentsAppSQL9Dev.Services;
+using StudentsApp.DTO;
+using StudentsApp.Models;
+using StudentsApp.Services;
 
-namespace StudentsAppSQL9Dev.Pages.Students
+namespace StudentsApp.Pages.Students
 {
     public class UpdateModel : PageModel
     {
         [BindProperty]
-        public StudentUpdateDTO? StudentUpdateDTO { get; set; } = new();
+        public StudentUpdateDTO StudentUpdateDTO { get; set; } = new();
         public List<Error> ErrorArray { get; set; } = [];
 
         private readonly IStudentService _studentService;
@@ -26,7 +26,7 @@ namespace StudentsAppSQL9Dev.Pages.Students
                 StudentReadOnlyDTO? studentReadOnlyDTO = _studentService.GetStudent(id);
                 StudentUpdateDTO = new StudentUpdateDTO
                 {
-                    Id = studentReadOnlyDTO.Id,
+                    Id = studentReadOnlyDTO!.Id,
                     Firstname = studentReadOnlyDTO.Firstname,
                     Lastname = studentReadOnlyDTO.Lastname,
                 };

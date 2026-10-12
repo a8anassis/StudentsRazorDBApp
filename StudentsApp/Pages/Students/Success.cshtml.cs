@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace StudentsAppSQL9Dev.Pages.Students
+namespace StudentsApp.Pages.Students
 {
     public class SuccessModel : PageModel
     {

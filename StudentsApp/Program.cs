@@ -2,6 +2,7 @@ using Serilog;
 using StudentsApp.Configuration;
 using StudentsApp.Core;
 using StudentsApp.DAO;
+using StudentsApp.Services;
 
 namespace StudentsApp
 {
@@ -11,11 +12,17 @@ namespace StudentsApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Host.UseSerilog((context, config) =>
+            {
+                config.ReadFrom.Configuration(context.Configuration);
+            });
+
             // Add services to the container.
             builder.Services.AddRazorPages();
 
             builder.Services.AddSingleton<DBHelper>();
             builder.Services.AddScoped<IStudentDAO, StudentDAOImpl>();
+            builder.Services.AddScoped<IStudentService, StudentServiceImpl>();
 
             builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MapperConfig>());
 

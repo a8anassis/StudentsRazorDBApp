@@ -1,4 +1,4 @@
-﻿namespace StudentsAppSQL9Dev.Models
+﻿namespace StudentsApp.Models
 {
     public class Error
     {
