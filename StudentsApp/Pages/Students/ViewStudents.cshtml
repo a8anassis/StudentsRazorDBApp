@@ -1,0 +1,49 @@
+﻿@page 
+@model StudentsAppSQL9Dev.Pages.Students.ViewStudentsModel
+@{
+}
+
+<h1 class="text-center mb-4">Students</h1>
+<a class="btn btn-primary btn-lg mb-4" href="/Students/Create">New Student</a>
+
+<table class="mx-auto table table-dark text-center">
+    <thead>
+        <tr class="table-primary">
+            <th colspan="4">Coding Factory Students</th>
+        </tr>
+        <tr>
+            <th>Κωδικός</th>
+            <th>Όνομα</th>
+            <th>Επώνυμο</th>
+            <th>Update/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.StudentsReadOnlyDTO.Count != 0)
+        {
+            @foreach (var student in Model.StudentsReadOnlyDTO)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Firstname</td>
+                    <td>@student.Lastname</td>
+                    <td>
+                        <a class="btn btn-primary" asp-page="/Students/Update" asp-route-id="@student.Id">Update</a>
+                        <form method="post" asp-page="/Students/Delete" asp-route-id="@student.Id"
+                              onsubmit="return confirm('Are you sure?');" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div>
+    @if (Model.ErrorObj is not null)
+    {
+        <p>@Model.ErrorObj.Message</p>
+    }
+</div>
+
+<script src="~/js/student.js"></script>

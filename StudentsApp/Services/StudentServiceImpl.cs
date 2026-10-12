@@ -21,8 +21,6 @@ public class StudentServiceImpl : IStudentService
         _logger = logger;
     }
 
-
-
     public void DeleteStudent(int id)
     {
         try
