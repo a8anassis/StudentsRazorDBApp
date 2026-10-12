@@ -6,7 +6,6 @@ namespace StudentsApp.Core
     {
         private readonly string _connectionString;
 
-
         public DBHelper(IConfiguration configuration)
         {
             _connectionString = configuration["ConnectionStrings:DefaultConnection"]!;
